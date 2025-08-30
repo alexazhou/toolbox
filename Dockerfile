@@ -7,6 +7,8 @@ ENV LANG=C.UTF-8
 #cp prebuild bin
 COPY ./bin/jad158e/jad /usr/local/bin
 COPY ./patch /root/patch
+COPY ./assets /root/assets
+
 
 #install package
 RUN echo "Asia/Shanghai" > /etc/timezone && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
@@ -21,6 +23,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone && ln -sf /usr/share/zoneinfo/Asia/Shan
     yum install nginx -y && \
     yum install redis -y && \
     yum install python3-pip -y && \
+    python3 -m pip install -r /root/assets/requirements.txt && \
     yum clean all && \
     cd /root && wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz && \
     tar -C /usr/local -xvzf go1.21.5.linux-amd64.tar.gz && \
